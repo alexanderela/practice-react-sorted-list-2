@@ -6,7 +6,8 @@ class NewTaskForm extends Component {
 		super(props);
 		this.state = {
 			title: '',
-			description: ''
+			description: '',
+			error: ''
 		}
 	}
 
@@ -21,6 +22,7 @@ class NewTaskForm extends Component {
 	}
 
 	render() {
+		const { title, description, error } = this.state;
 
 		return(
 			<form 
@@ -30,16 +32,17 @@ class NewTaskForm extends Component {
 				<input 
 					placeholder='New Task Title'
 					name='title'
-					value={this.state.title}
+					value={title}
 					onChange={this.handleInputChange}
 				/>
 				<input
 					placeholder='New Task Description'
 					name='description'
-					value={this.state.description}
+					value={description}
 					onChange={this.handleInputChange}
 				/>
-				<button >Add Task</button>
+				<button>Add Task</button>
+				<h3>{error}</h3>
 			</form>
 		)
 	}

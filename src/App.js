@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import NewTaskForm from './NewTaskForm.js';
 import TaskContainer from './TaskContainer.js';
+const uuid = require('uuidv4'); = {...task, id: uuid()}
 
 class App extends Component {
   constructor() {
@@ -12,7 +13,7 @@ class App extends Component {
   }
 
   addNewTask = (task) => {
-    
+    const newTask = {...task, id: uuid()}
   }
 
 

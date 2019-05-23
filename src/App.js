@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import NewTaskForm from './NewTaskForm.js';
+import TaskContainer from './TaskContainer.js';
+const uuid = require('uuid4');
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      tasks: []
+    }
+  }
+
+  addNewTask = (task) => {
+    const newTask = {...task, id: uuid()}
+    const unsortedTasks = [...this.state.tasks, newTask]
+    const tasks = unsortedTasks.sort((a,b) => {
+      if(a.title < b.title) {
+        return -1
+      }
+      if(b.title > a.title) {
+        return 1
+      }
+      return 0
+    })
+
+    this.setState({ tasks })
+  }
+
+  removeTask = (id) => {
+    const tasks = this.state.tasks.filter(task => {
+      return task.id !== id
+    })
+    this.setState({ tasks })
+  }
+
+
+  render() {
+    return (
+      <div className='App'>
+        <h1>Welcome to the Task Manager!</h1>
+        <NewTaskForm addNewTask={this.addNewTask} />
+        <TaskContainer 
+          tasks={this.state.tasks}
+          removeTask={this.removeTask}/>
+      </div>
+    )
+  }
 }
+
+
 
 export default App;

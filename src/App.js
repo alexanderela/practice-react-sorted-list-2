@@ -14,12 +14,25 @@ class App extends Component {
 
   addNewTask = (task) => {
     const newTask = {...task, id: uuid()}
-    const tasks = [...this.state.tasks, newTask]
+    const unsortedTasks = [...this.state.tasks, newTask]
+    const tasks = unsortedTasks.sort((a,b) => {
+      if(a.title < b.title) {
+        return -1
+      }
+      if(b.title > a.title) {
+        return 1
+      }
+      return 0
+    })
+
     this.setState({ tasks })
   }
 
-  removeTask = () => {
-
+  removeTask = (id) => {
+    const tasks = this.state.tasks.filter(task => {
+      return task.id !== id
+    })
+    this.setState({ tasks })
   }
 
 

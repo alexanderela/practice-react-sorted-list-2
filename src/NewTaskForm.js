@@ -18,7 +18,17 @@ class NewTaskForm extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-		this.props.addNewTask(this.state)
+		const { title, description } = this.state
+
+		const trimmedTitle = title.trim()
+		const trimmedDescription = description.trim()
+
+		if(trimmedTitle.length && trimmedDescription.length) {
+			this.setState({ error: '' })
+			this.props.addNewTask(this.state)
+		} else {
+			this.setState({ error: 'Please enter a title and description with at least 1 character'})
+		}
 	}
 
 	render() {
@@ -42,7 +52,9 @@ class NewTaskForm extends Component {
 					onChange={this.handleInputChange}
 				/>
 				<button>Add Task</button>
-				<h3>{error}</h3>
+				<div className='error-container'>
+					<h3>{error.length ? error : ''}</h3>
+				</div>
 			</form>
 		)
 	}

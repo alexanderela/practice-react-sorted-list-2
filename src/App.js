@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import NewTaskForm from './NewTaskForm.js';
 import TaskContainer from './TaskContainer.js';
-const uuid = require('uuidv4'); = {...task, id: uuid()}
+const uuid = require('uuid4');
 
 class App extends Component {
   constructor() {
@@ -14,8 +14,13 @@ class App extends Component {
 
   addNewTask = (task) => {
     const newTask = {...task, id: uuid()}
+    const tasks = [...this.state.tasks, newTask]
+    this.setState({ tasks })
   }
 
+  removeTask = () => {
+
+  }
 
 
   render() {
@@ -23,7 +28,9 @@ class App extends Component {
       <div className='App'>
         <h1>Welcome to the Task Manager!</h1>
         <NewTaskForm addNewTask={this.addNewTask} />
-        
+        <TaskContainer 
+          tasks={this.state.tasks}
+          removeTask={this.removeTask}/>
       </div>
     )
   }

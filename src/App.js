@@ -7,14 +7,22 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-
+      tasks: []
     }
   }
+
+  addNewTask = (task) => {
+    
+  }
+
+
 
   render() {
     return (
       <div className='App'>
-        <h1>Deez Nuts</h1>
+        <h1>Welcome to the Task Manager!</h1>
+        <NewTaskForm addNewTask={this.addNewTask} />
+        
       </div>
     )
   }
